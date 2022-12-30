@@ -53,7 +53,14 @@ section {
     box-shadow: var(--box-shadow);
     overflow: auto;
     user-select: none;
+    scroll-behavior: smooth;
 }
+
+.tab-menu.dragging {
+    scroll-behavior: unset;
+    cursor: grab;
+}
+
 .tab-menu::-webkit-scrollbar {
     display: none;
 }
@@ -71,9 +78,111 @@ section {
     transition: .3s ease;
 }
 
+.tab-menu.dragging .tab-btn {
+    pointer-events: none;
+}
+
 .tab-btn:hover {
     background: var(--first-color);
 }
 .tab-btn.active {
     background: var(--second-color);
+}
+
+.left-btn, .right-btn {
+    position: absolute;
+    color: var(--text-color);
+    font-size: 1.8em;
+    padding: 10px;   
+    cursor: pointer;
+}
+
+.left-btn {
+    left: 0;
+    background: linear-gradient(to left, transparent, var(--first-color) 80%);
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    display: none;
+}
+.right-btn {
+    right: 0;
+    background: linear-gradient(to right, transparent, var(--first-color) 80%);
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+/*  Tab Content */
+
+.tab-content {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+}
+
+.tab .row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.tab {
+    max-width: 1100px;
+    padding: 15px 50px;
+    /*sobrescrevendo os elementos com position absolute*/
+    position: absolute;
+    top: 0;
+    left: auto;
+    bottom: 0;
+    right: auto;
+    transform: translateX(25px);
+    content-visibility: hidden;
+    opacity: 0;
+}
+
+/* O content aparece suave quando o active e chamado.*/
+.tab.active {
+    transform: translateX(0px);
+    content-visibility: visible;
+    opacity: 1;
+    transition: 1s ease;
+}
+
+
+.tab .img-card {
+    position: relative;
+    width: 450px;
+    max-width: 450px;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--box-shadow);
+}
+.tab .img-card img {
+    width: 100%;
+}
+
+
+.right-column {
+    max-width: 800px;
+}
+
+.info .animals, .info .description p {
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+.info .animals {
+    font-size: 2em;
+}
+.country {
+    color: var(--third-color);
+    font-size: 5em;
+    font-weight: 700;
+    text-align: center;
+    text-shadow: var(--text-color);
 }
